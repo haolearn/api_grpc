@@ -1,4 +1,5 @@
 ### compile
+- author:haohao
 - 编译 proto api (  ==without== google apis,http mapping support)
 ```
  protoc --java_out=src/main/java  -I./src/main/proto/api ./src/main/proto/api/*.proto
