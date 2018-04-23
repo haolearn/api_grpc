@@ -1,5 +1,5 @@
 ### compile
-- author:haohaochn@163.com
+- author:haohaochn@163.com hhofchina on github.com
 - 编译 proto api (  ==without== google apis,http mapping support)
 ```
  protoc --java_out=src/main/java  -I./src/main/proto/api ./src/main/proto/api/*.proto
