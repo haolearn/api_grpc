@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	pb "../api"
+	pb "github.com/learnhao/api_grpc/src/main/go/api"
 	epb "google.golang.org/genproto/googleapis/rpc/errdetails"
 
 	"golang.org/x/net/context"
