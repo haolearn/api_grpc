@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"net"
-	pb "github.com/learnhao/api_grpc/src/main/go/api"
+	pb "github.com/haolearn/api_grpc/src/main/go/api"
 	epb "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"fmt"
 	"log"
