@@ -1,0 +1,614 @@
+syntax = "proto3";
+package api;
+option java_multiple_files = true;
+option java_package = "com.xingyun.policy.api.model";
+
+import "enums.proto";
+
+// 用车政策规则检查项数据封装.
+message CarCheckItem {
+    // 用户ID.
+    int64 cuid = 1;
+
+    // 企业ID.
+    int64 eid = 2;
+
+    // 订单金额：分.
+    int64 order_fee = 3;
+
+    // 车型.
+    CarType car_type = 4;
+
+    // 出发时间unix秒（含日期）
+    int32 depart_time = 5;
+
+    // (出发)经度.
+    double longitude = 6;
+
+    // (出发)纬度.
+    double latitude = 7;
+
+    // 业务类型.
+    CarBusiType busi_type = 8;
+
+    // 接送机接送站unix秒时间(含日期).
+    int32 transfer_time = 9;
+}
+
+// 飞机政策规则检查项数据封装.
+message FlightCheckItem {
+    // 用户ID.
+    int64 cuid = 1;
+
+    // 企业ID.
+    int64 eid = 2;
+
+    // 是否强制下单.
+    bool force = 3;
+
+    // 舱位类型 Y:经济 C: 公务舱 F: 头等舱
+    string carbin_type = 4;
+
+    // 出发时间,unix 秒.
+    int32 depart_time = 5;
+
+    // 到达时间.
+    int32 arrive_time = 6;
+
+    // 舱位折扣:万分之n.
+    int32 discount = 7;
+
+    // 航空意外险：分.
+    int64 insurance = 8;
+
+    // 出发经度.
+    double depart_longitude = 9;
+
+    // 出发纬度.
+    double depart_latitude = 10;
+
+    // 到达经度.
+    double arrive_longitude = 11;
+
+    // 到达纬度.
+    double arrive_latitude = 12;
+
+    // 飞行出发、目的城市的名称
+    message CityItem {
+        string depart_city_code = 1;
+        string arrive_city_code = 2;
+    }
+    // 审批城市列表.
+    repeated CityItem approve_cities = 13;
+
+    // 出发城市代码.
+    string depart_city_code = 14;
+
+    // 到达城市代码.
+    string arrive_city_code = 15;
+
+    // 航空公司.
+    string carrier_code = 16;
+
+    // 出发城市名.
+    string depart_city_name = 17;
+
+    // 到达城市名.
+    string arrive_city_name = 18;
+}
+
+// 火车政策规则检查项数据封装.
+message TrainCheckItem {
+    // 用户ID.
+    int64 cuid = 1;
+
+    // 企业ID.
+    int64 eid = 2;
+
+    // 座位类型:（1:硬座 2：软座 3：硬卧 4：软卧 6：高级软卧  9：商务座 O：二等座 M：一等座）
+    string seat_type = 3;
+
+    // 出发时间unix秒.
+    int32 depart_time = 4;
+
+    // 保险:分.
+    int64 insurance = 5;
+}
+
+// 酒店政策规则检查项数据封装.
+message HotelCheckItem {
+    // 用户ID.
+    int64 cuid = 1;
+
+    // 企业ID.
+    int64 eid = 2;
+
+    // 星级（1：经济型 2：二星 3：三星 4：四星 5: 五星）.
+    string star_level = 3;
+
+    // 预订：unix秒.
+    int32 booking_time = 4;
+
+    // 城市码.
+    string city = 5;
+
+    // 价格，分.
+    int64 price = 6;
+
+    // 审批单城市
+    repeated string approve_cities = 7;
+}
+
+//// 长包车政策规则检查项数据封装.
+//message LongBusCheckItem {
+//    // 用户ID.
+//    int64 cuid = 1;
+//
+//    // 企业ID.
+//    int64 eid = 2;
+//}
+//
+//// 大巴车政策规则检查项数据封装.
+//message BigBusCheckItem {
+//    // 用户ID.
+//    int64 cuid = 1;
+//
+//    // 企业ID.
+//    int64 eid = 2;
+//}
+
+// 汽车票政策规则检查项数据封装.
+message BusTicketCheckItem {
+    // 用户ID.
+    int64 cuid = 1;
+
+    // 企业ID.
+    int64 eid = 2;
+}
+
+// 规则时间信息.
+message TimeItem {
+    // 规则UUID.
+    string foreign_uuid = 1;
+
+    // 时间规则对应UUID.
+    string date_uuid = 2;
+
+    //是否启用时间限制(1:启用 0：不启用).
+    bool time_limit = 3;
+
+    // 周一是否允许.
+    bool monday = 4;
+
+    // 周二是否允许.
+    bool tuesday = 5;
+
+    // 周三是否允许.
+    bool wednesday = 6;
+
+    // 周四是否允许.
+    bool thursday = 7;
+
+    // 周五是否允许.
+    bool friday = 8;
+
+    // 周六是否允许.
+    bool saturday = 9;
+
+    // 周日是否允许.
+    bool sunday = 10;
+
+    // 时间段范围（多个时间段用#隔开，每个时间段中间用“|”号隔开，如0630|2135#1225|2210）.
+    string time_range = 11;
+
+    //时间类型（1：出发时间 2：接机 3：送机 4：接站 5：送站）.
+    string time_type = 12;
+}
+
+// 部门信息封装.
+message DepartmentItem {
+    // 企业编号.
+    int64 eid = 1;
+
+    // 部门编号.
+    int64 department_id = 2;
+
+    // 部门名称.
+    string department_name = 3;
+
+    //总员工数.
+    int32 total_number = 4;
+}
+
+// 角色信息封装.
+message RoleItem {
+    // 企业编号.
+    int64 eid = 1;
+    // 部门编号.
+    int64 department_id = 2;
+    // 角色编号.
+    int64 role_id = 3;
+    // 角色名称.
+    string role_name = 4;
+    // 规则uuid
+    string uuid = 5;
+}
+
+// 地点规则封装.
+message LocationItem {
+    // foreignUUID.
+    string uuid = 1;
+    // 位置UUID.
+    string location_uuid = 2;
+
+    // 省id.
+    int32 province_id = 3;
+
+    // 省名.
+    string provinc_name = 4;
+
+    // 城市id.
+    int32 city_id = 5;
+
+    // 城市名.
+    string city_name = 6;
+
+    // 县id.
+    int32 county_id = 7;
+
+    // 县名.
+    string county_name = 8;
+
+    // 地址.
+    string address = 9;
+
+    // 半径.
+    double radis = 10;
+
+    // 经度.
+    double longitude = 11;
+    // 纬度.
+    double latitude = 12;
+
+    LocationSrcType location_src = 13;
+}
+
+// 机票规则数据封装.
+message FlightRuleItem {
+    message SettingItem {
+        // 企业编号.
+        int64 eid = 1;
+
+        // 规则名称.
+        string rule_name = 2;
+
+        // 机票设置flightSetUuid.
+        string uuid = 3;
+
+        //可订舱位等级（F：头等,C:公务,Y：经济）.
+        repeated string cabins = 4;
+
+        //是否启用折扣.
+        bool discount_flg = 5;
+
+        // 折扣：万分之.
+        int32 discount = 7;
+
+        // 是否启用距离限制.
+        bool distance_flg = 8;
+
+        // 距离限制值.
+        int32 distance = 10;
+
+        // 是否启用时间限制.
+        bool time_flg = 11;
+
+        // 时间限制值.
+        string time = 12;
+
+        // 是否启用企业购买保险.
+        bool insurance_flg = 13;
+
+        // 是否需要审批.
+        bool approve_flg = 14;
+
+        // 是否提前预定.
+        bool before_book_flg = 15;
+
+        // 提前预定天数
+        int32 before_book_days = 16;
+
+        // 多个航司.
+        repeated string airlines = 17;
+
+        // 退改签是否需要审批.
+        bool refund_approve_flg = 19;
+
+        // 超规允许订票。
+        bool super_allow_flg = 20;
+
+        int32 create_time = 21;
+        int32 update_time = 22;
+    }
+
+    // 飞机规则信息.
+    SettingItem settings = 1;
+
+    // 时间限制.
+    repeated TimeItem time_settings = 2;
+
+    // 部门列表信息
+    repeated DepartmentItem departments = 3;
+
+    // 角色列表.
+    repeated RoleItem roles = 4;
+}
+
+// 用车规则封装.
+message CarRuleItem {
+    // 用车规则设置项.
+    message SettingItem {
+        int64 eid = 1;
+        int32 create_time = 2;
+        int32 update_time = 3;
+        string rule_name = 4;
+
+        // carSetUUID.
+        string uuid = 5;
+
+        // 车型.
+        string car_type = 6;
+
+        // 是否限额.
+        bool consume_flg = 7;
+
+        // 限额值：分.
+        int64 consume_limit = 8;
+    }
+
+    // 用车规则.
+    SettingItem settings = 1;
+
+    // 时间限制.
+    repeated TimeItem times = 2;
+
+    // 出发地规则信息.
+    repeated LocationItem locations = 3;
+
+    // 部门列表.
+    repeated DepartmentItem departments = 4;
+
+    // 角色列表.
+    repeated RoleItem roles = 5;
+}
+
+// 酒店规则封装.
+message HotelRuleItem {
+    // 酒店规则设置项.
+    message SettingItem {
+        int64 eid = 1;
+        // hotelSetUUID.
+        string uuid = 2;
+        int32 create_time = 3;
+        int32 update_time = 4;
+        string rule_name = 5;
+
+        // 酒店星级（1：经济型 2：二星 3：三星 4：四星 5: 五星）.
+        string star_level = 6;
+
+        // 是否需要审批.
+        bool approve_flg = 7;
+
+        // 是否提前预定.
+        bool before_book_flg = 8;
+
+        // 提前预定天数.
+        int32 before_book_days = 9;
+    }
+
+    // 限价城市封装.
+    message CityItem {
+        // foreignUUID.
+        string uuid = 1;
+
+        // 城市类型：一线、二线、三线.
+        CityType cityType = 2;
+
+        // 价格：分.
+        int64 price = 3;
+
+        // 城市代码.
+        string city_code = 4;
+
+        // 是否打开标志.
+        bool open_flg = 5;
+    }
+
+    // 酒店规则.
+    SettingItem setting = 1;
+
+    // 限价城市信息.
+    repeated CityItem city_settings = 2;
+
+    // 部门列表.
+    repeated DepartmentItem departments = 3;
+
+    // 角色列表.
+    repeated RoleItem roles = 4;
+}
+
+// 火车规则封装.
+message TrainRuleItem {
+    // 火车规则设置项.
+    message SettingItem {
+        int64 eid = 1;
+        // trainSetUUID.
+        string uuid = 2;
+        int32 create_time = 3;
+        int32 update_time = 4;
+        string rule_name = 5;
+
+        // 可订车次类型（F:动卧，9:商务座，P:特等座，M:一等座，O:二等座，6:高级软卧，4:软卧，3:硬卧，2:软座，1:硬座）.
+        string seat_type = 6;
+
+        // 是否购买保险.
+        bool insurance_flg = 7;
+
+        // 订票是否需要审批.
+        bool approve_flg = 8;
+
+        // 是否控制提前预定.
+        bool before_book_flg = 9;
+
+        // 允许提前预定天数.
+        int32 before_book_days = 10;
+
+        // 退改签是否需要审批.
+        bool refund_approve_flg = 11;
+
+        // 超规允许订票。
+        bool super_allow_flg = 12;
+    }
+
+    // 火车票规则信息.
+    SettingItem settings = 1;
+
+    // 时间限制.
+    repeated TimeItem time_settings = 2;
+
+    // 部门列表.
+    repeated DepartmentItem departments = 3;
+
+    // 角色列表.
+    repeated RoleItem roles = 4;
+}
+
+// 支付规则封装.
+message PayRuleItem {
+    // 支付规则设置项.
+    message SettingItem {
+        int64 eid = 1;
+        // paySetUUID.
+        string uuid = 2;
+        int32 create_time = 3;
+        int32 update_time = 4;
+        string rule_name = 5;
+    }
+
+    // 支付规则信息.
+    SettingItem settings = 1;
+
+    // 支付类型封装.
+    message PayTypeItem {
+        string uuid = 1;
+
+        // 业务类型(1:用车 2：飞机票 3：火车票 4：酒店 5:大巴 6：长包车 7:汽车票).
+        BusiType busi_type = 2;
+
+        // 支付方式(1:企业支付 2:个人支付)，支持多种.
+        repeated string pay_type = 3;
+    }
+    // 业务支付方式列表.
+    repeated PayTypeItem pay_types = 2;
+
+    // 部门列表.
+    repeated DepartmentItem departments = 3;
+}
+
+// 汽车票规则封装.
+message BusTicketRuleItem {
+    // 汽车票规则设置项.
+    message SettingItem {
+        int64 eid = 1;
+        // busTicketSetUUID.
+        string uuid = 2;
+        int32 create_time = 3;
+        int32 update_time = 4;
+        string rule_name = 5;
+
+        // 订票是否需要审批.
+        bool approve_flg = 6;
+
+        // 超规允许订票。
+        bool super_allow_flg = 12;
+    }
+    // 汽车票规则信息.
+    SettingItem settings = 1;
+
+    // 部门列表.
+    repeated DepartmentItem departments = 3;
+
+    // 角色列表.
+    repeated RoleItem roles = 4;
+}
+
+// 机票规则详情数据封装.
+message FlightRuleDetailItem {
+
+    // 规则基本信息.
+    FlightRuleItem.SettingItem settings = 1;
+
+    // 是否可用 (0:不可用 1:可用有政策 2:可用无政策).
+    int32 can_use = 21;
+
+    // 用户ID.
+    int64 cuid = 22;
+
+    // 时间限制信息.
+    repeated TimeItem times = 23;
+}
+
+// 火车规则详情封装.
+message TrainRuleDetailItem {
+    // 火车票规则基本信息.
+    TrainRuleItem.SettingItem settings = 1;
+
+    // 时间限制信息.
+    repeated TimeItem times = 2;
+
+    // 是否可用 (0:不可用 1:可用有政策 2:可用无政策).
+    int32 can_use = 10;
+}
+
+// 用车规则详情.
+message CarRuleDetailItem {
+    // 用车规则基本信息.
+    CarRuleItem.SettingItem settings = 1;
+
+    // 是否可用 (0:不可用 1:可用有政策 2:可用无政策).
+    int32 can_use = 10;
+
+    // 时间限制信息.
+    repeated TimeItem times = 11;
+    repeated LocationItem locations = 13;
+}
+
+// 酒店规则详情.
+message HotelRuleDetailItem {
+    // 酒店规则基本信息.
+    HotelRuleItem.SettingItem settings = 1;
+
+    // 是否可用 (0:不可用 1:可用有政策 2:可用无政策).
+    int32 can_use = 10;
+
+    // 现价城市设置.
+    repeated HotelRuleItem.CityItem cities = 13;
+}
+
+// 支付规则详情.
+message PayRuleDetailItem {
+    // 支付规则基本信息.
+    PayRuleItem.SettingItem settings = 1;
+
+    // 业务支付方式列表.
+    repeated PayRuleItem.PayTypeItem pay_types = 2;
+}
+
+// 汽车票规则详情.
+message BusTicketRuleDetailItem {
+    // 汽车票规则基本信息.
+    BusTicketRuleItem.SettingItem settings = 1;
+
+    // 是否可用 (0:不可用 1:可用有政策 2:可用无政策).
+    int32 can_use = 10;
+}

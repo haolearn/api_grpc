@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+	<Appenders>
+		<RollingFile name="RollingFile" fileName="./logs/policy.log"
+					 filePattern="./logs/xingyun-policy-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>{{policy}} [%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%X{sessionId}][][%X{cip}:%X{cPort}][%X{sip}:%X{sPort}][bj-wj][%X{userId}][%t|%logger{1.}||] - %msg%n</Pattern>
+				<!-- <Pattern> %msg%n</Pattern> -->
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+					pattern="{{policy}} [%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%X{sessionId}][%X{traceId}][%X{cip}:%X{cPort}][%X{sip}:%X{sPort}][bj-wj][%X{userId}][%t|%l|%L] - %msg%n" />
+		</Console>
+
+	</Appenders>
+	<loggers>
+		<root level="INFO">
+			<appender-ref ref="RollingFile" />
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration>

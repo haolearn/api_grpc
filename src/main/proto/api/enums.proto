@@ -1,0 +1,118 @@
+syntax = "proto3";
+package api;
+option java_multiple_files = true;
+option java_package = "com.xingyun.policy.api.enums";
+
+// 通用状态枚举.
+enum Status {
+    // 状态为空.
+    STATUS_EMPTY = 0;
+
+    // 成功.
+    STATUS_SUCCESS = 1;
+
+    // 失败：业务导致.
+    STATUS_FAIL = 2;
+
+    // 出错：服务异常.
+    STATUS_ERROR = 3;
+}
+
+// 政策基本业务类型.
+enum BusiType {
+    // 空值.
+    BUSI_TYPE_EMPTY = 0;
+
+    // 用车.
+    BUSI_TYPE_CAR = 1;
+
+    // 机票.
+    BUSI_TYPE_FLIGHT = 2;
+
+    // 火车票.
+    BUSI_TYPE_TRAIN = 3;
+
+    // 酒店.
+    BUSI_TYPE_HOTEL = 4;
+
+//    // 大巴.
+//    BUSI_TYPE_BIGBUS = 5;
+//
+//    // 长包车.
+//    BUSI_TYPE_LONGBUS = 6;
+
+    // 汽车票.
+    BUSI_TYPE_BUSTICKET = 7;
+
+    // 支付.
+    BUSI_TYPE_PAY = 8;
+}
+
+// 用车车型.
+enum CarType {
+    // 空.
+    CAR_TYPE_EMPTY = 0;
+
+    // 经济型.
+    CAR_TYPE_ECONOMIC = 1;
+
+    // 舒适型.
+    CAR_TYPE_COMFORT = 2;
+
+    // 商务型.
+    CAR_TYPE_BUSINESS = 3;
+
+    // 豪华型.
+    CAR_TYPE_LUXURY = 4;
+}
+
+// 用车业务类型,转换成原定义:%3==原定义.
+enum CarBusiType {
+    // 空值.
+    CAR_BUSI_TYPE_EMPTY = 0;
+
+    // 立即用车,转换成原定义立即用车&预约用车：%3==1.
+    CAR_BUSI_TYPE_IMMEDIATELY = 1;
+
+    // 送机,转换成原定义接送机&接送站：%3==2.
+    CAR_BUSI_TYPE_AIRPORT_SEND = 2;
+
+    // 接机,转换成原定义接送机&接送站：%3==2.
+    CAR_BUSI_TYPE_AIRPORT_RECEIVE = 5;
+
+    // 预约用车,转换成原定义立即用车&预约用车：%3==1.
+    CAR_BUSI_TYPE_RESERVE = 4;
+
+    // 送站,转换成原定义接送机&接送站：%3==2.
+    CAR_BUSI_TYPE_STATIION_SEND = 8;
+
+    // 接站,转换成原定义接送机&接送站：%3==2.
+    CAR_BUSI_TYPE_STATIION_RECEIVE = 11;
+}
+
+// 位置类型.
+enum LocationSrcType {
+    // 空值.
+    LOCATION_SRC_TYPE_EMPTY = 0;
+
+    // 出发地.
+    LOCATION_SRC_TYPE_DEPART = 1;
+
+    // 目的地.
+    LOCATION_SRC_TYPE_DEST = 2;
+}
+
+// 城市类型.
+enum CityType {
+    // 空值.
+    CITY_TYPE_LEVEL_EMPTY = 0;
+
+    // 一线城市.
+    CITY_TYPE_LEVEL_ONE = 1;
+
+    // 二线城市.
+    CITY_TYPE_LEVEL_TWO = 2;
+
+    // 三线城市.
+    CITY_TYPE_LEVEL_THREE = 3;
+}

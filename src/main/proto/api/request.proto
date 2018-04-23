@@ -1,0 +1,68 @@
+syntax = "proto3";
+package api;
+option java_multiple_files = true;
+option java_package = "com.xingyun.policy.api.dto.request";
+
+import "google/protobuf/any.proto";
+import "enums.proto";
+//import "model.proto";
+
+// 可扩充请求消息头，封装通用的请求消息头.
+message RequestHeader {
+    // 请求唯一的trace_id，全局唯一，响应头中带回，用于跟踪服务.
+    string trace_id = 1;
+
+    // 请求方幂等key,不传接口不提供幂等支持，请求唯一键=key+source.
+    string key = 2;
+
+    // 向服务者标明自己的身份.
+    string source = 3;
+
+    // 可选扩展信息,任何类型.
+    google.protobuf.Any ext = 100;
+}
+
+// 通用翻页请求消息.
+message PageRequest {
+    // 页码，[1,n].
+    int32 page_num = 1;
+
+    // 分页大小.如果获取的是全部数据, 该字段值为0.
+    int32 page_size = 2;
+}
+
+// 政策检查请求.
+message CheckRequest {
+    // 请求头.
+    RequestHeader header = 1;
+
+    // 政策业务类型.
+    BusiType busi_type = 2;
+
+    // 业务相关数据请求,如FlightCheckItem，CarCheckItem.
+    repeated google.protobuf.Any items = 100;
+}
+
+// 规则列表请求.
+message ListRequest {
+    // 请求头.
+    RequestHeader header = 1;
+
+    // 企业ID.
+    int64 eid = 2;
+
+    // 政策业务类型.
+    BusiType busi_type = 3;
+}
+
+// 规则明细请求.
+message ListDetailRequest {
+    // 请求头.
+    RequestHeader header = 1;
+
+    // 用户id列表.
+    repeated int64 cuids = 2;
+
+    // 业务类型.
+    BusiType busi_type = 3;
+}

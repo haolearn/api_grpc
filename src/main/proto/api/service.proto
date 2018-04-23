@@ -1,0 +1,28 @@
+syntax = "proto3";
+package api;
+option java_multiple_files = false;
+option java_package = "com.xingyun.policy.api.service";
+import "request.proto";
+import "response.proto";
+
+// 政策（规则）服务.
+service PolicyService {
+    // 政策规则检查.
+    rpc check (CheckRequest) returns (PolicyResponse);
+
+
+    // 查规则列表.
+    rpc listPolicy (ListRequest) returns (PolicyResponse);
+
+    // 查规则明细.
+    rpc listDetail(ListDetailRequest) returns (PolicyResponse);
+
+    // 流方式发送多个请求.
+    rpc checkStreaming (stream CheckRequest) returns (PolicyResponse);
+
+    // 查规则列表,流方式响应.
+    rpc listPolicyStreaming (ListRequest) returns (stream PolicyResponse);
+
+    // 流方式发送请求、流方式接收多个响应.
+    rpc listDetailStreaming(stream ListDetailRequest) returns (stream PolicyResponse);
+}
